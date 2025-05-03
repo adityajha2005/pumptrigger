@@ -100,6 +100,16 @@ def get_positions():
     params = f"category=linear&symbol={SYMBOL}"
     return http_request(endpoint, "GET", params)
 
+def get_unfilled_orders():
+    endpoint="/v5/order/realtime"
+    params=f"category=linear&settleCoin=USDT"
+    return http_request(endpoint, "GET", params)
+
+def cancel_order(order_id):
+    endpoint="/v5/order/cancel"
+    params=f"category=linear&symbol={SYMBOL}&orderLinkId={order_id}"
+    return http_request(endpoint, "POST", params)
+
 def place_order(side, order_type, quantity, price=None, take_profit=None, stop_loss=None):
     endpoint = "/v5/order/create"
     order_link_id = uuid.uuid4().hex
